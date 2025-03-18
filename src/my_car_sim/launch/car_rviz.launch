@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Launch RViz with configuration -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find my_car_sim)/rviz/car_config.rviz" />
+</launch>

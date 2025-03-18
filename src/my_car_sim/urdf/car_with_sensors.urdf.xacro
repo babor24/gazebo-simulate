@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot name="my_car_with_sensors" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <!-- Include car model -->
+  <xacro:include filename="$(find my_car_sim)/urdf/car.urdf.xacro" />
+  
+  <!-- Include sensors -->
+  <xacro:include filename="$(find my_car_sim)/urdf/sensors.urdf.xacro" />
+  
+  <!-- Add camera -->
+  <xacro:camera_sensor prefix="camera" parent="base_link" xyz="0.2 0 0.15" rpy="0 0 0" />
+  
+  <!-- Add LiDAR -->
+  <xacro:lidar_sensor prefix="lidar" parent="base_link" xyz="0 0 0.15" rpy="0 0 0" />
+  
+</robot>

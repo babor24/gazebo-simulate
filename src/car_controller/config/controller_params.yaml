@@ -1,0 +1,41 @@
+# Global Parameters
+global:
+  max_speed: 1.0
+  min_speed: 0.0
+  max_steering: 1.0
+
+# PID Controller Parameters
+pid_controller:
+  kp_linear: 0.5
+  ki_linear: 0.01
+  kd_linear: 0.1
+  kp_angular: 1.0
+  ki_angular: 0.01
+  kd_angular: 0.1
+  target_speed: 0.5
+  target_distance: 1.5
+  min_distance: 0.5
+
+# Lane Following Parameters
+lane_following:
+  lane_width: 1.0
+  max_detection_distance: 5.0
+  color_threshold_low: [20, 100, 100]
+  color_threshold_high: [30, 255, 255]
+
+# Obstacle Avoidance Parameters
+obstacle_avoidance:
+  safety_distance: 0.5
+  look_ahead_distance: 2.0
+  num_paths: 7
+  path_width: 0.3
+  distance_weight: 0.4
+  clearance_weight: 0.3
+  direction_weight: 0.3
+
+# Path Planning Parameters
+path_planning:
+  waypoint_radius: 0.5
+  lookahead_distance: 1.0
+  max_angular_speed: 1.0
+  max_linear_speed: 0.5

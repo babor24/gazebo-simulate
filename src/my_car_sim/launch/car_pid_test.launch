@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Start Gazebo simulation -->
+  <include file="$(find my_car_sim)/launch/car_gazebo.launch" />
+
+  <!-- Start RViz for visualization -->
+  <include file="$(find my_car_sim)/launch/car_rviz.launch" />
+  
+  <!-- Launch PID controller -->
+  <node name="pid_controller" pkg="my_car_sim" type="pid_controller.py" output="screen">
+    <param name="kp" value="1.0" />
+    <param name="ki" value="0.01" />
+    <param name="kd" value="0.1" />
+  </node>
+</launch>

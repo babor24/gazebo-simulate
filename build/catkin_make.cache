@@ -1,0 +1,2 @@
+car_controller:my_car_sim
+-DCATKIN_DEVEL_PREFIX=/home/idrisarif/car_ws/devel -DCMAKE_INSTALL_PREFIX=/home/idrisarif/car_ws/install -G Unix Makefiles

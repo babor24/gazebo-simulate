@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Start Gazebo simulation -->
+  <include file="$(find my_car_sim)/launch/car_gazebo.launch" />
+  
+  <!-- Start RViz for visualization -->
+  <include file="$(find my_car_sim)/launch/car_rviz.launch" />
+  
+  <!-- Start teleop keyboard for control -->
+  <node name="teleop_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen">
+    <remap from="cmd_vel" to="/my_car/cmd_vel" />
+  </node>
+</launch>

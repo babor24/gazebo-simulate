@@ -1,0 +1,56 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="control_mode" default="obstacle_avoidance"/>
+  <arg name="debug_mode" default="false"/>
+  
+  <!-- Load Parameters -->
+  <rosparam command="load" file="$(find car_controller)/config/controller_params.yaml"/>
+  
+  <!-- Sensor Processing Nodes -->
+  <node name="lidar_processor" pkg="car_controller" type="lidar_processor.py" output="screen">
+    <param name="num_sectors" value="8"/>
+    <param name="max_range" value="10.0"/>
+  </node>
+  
+  <node name="camera_processor" pkg="car_controller" type="camera_processor.py" output="screen">
+    <param name="debug_mode" value="$(arg debug_mode)"/>
+  </node>
+  
+  <!-- Control Nodes -->
+  <node name="pid_controller" pkg="car_controller" type="pid_controller.py" output="screen">
+    <param name="kp_linear" value="0.5"/>
+    <param name="ki_linear" value="0.01"/>
+    <param name="kd_linear" value="0.1"/>
+    <param name="kp_angular" value="1.0"/>
+    <param name="ki_angular" value="0.01"/>
+    <param name="kd_angular" value="0.1"/>
+    <param name="target_speed" value="0.5"/>
+    <param name="target_distance" value="1.5"/>
+    <param name="min_distance" value="0.5"/>
+  </node>
+  
+  <node name="obstacle_avoidance" pkg="car_controller" type="obstacle_avoidance.py" output="screen">
+    <param name="safety_distance" value="0.5"/>
+    <param name="look_ahead_distance" value="2.0"/>
+    <param name="num_paths" value="7"/>
+    <param name="path_width" value="0.3"/>
+  </node>
+  
+  <node name="simple_path_planner" pkg="car_controller" type="simple_path_planner.py" output="screen">
+    <param name="waypoint_radius" value="0.5"/>
+    <param name="lookahead_distance" value="1.0"/>
+    <param name="max_angular_speed" value="1.0"/>
+    <param name="max_linear_speed" value="0.5"/>
+  </node>
+  
+  <!-- Autonomous System Integration -->
+  <node name="autonomous_system" pkg="car_controller" type="autonomous_system.py" output="screen">
+    <param name="control_mode" value="$(arg control_mode)"/>
+    <param name="path_following_weight" value="0.0"/>
+    <param name="obstacle_avoidance_weight" value="0.7"/>
+    <param name="lane_following_weight" value="0.3"/>
+  </node>
+  
+  <!-- Visualization -->
+  <node if="$(arg debug_mode)" name="rviz" pkg="rviz" type="rviz" args="-d $(find car_controller)/config/autonomous_car.rviz"/>
+</launch>

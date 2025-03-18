@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Start Gazebo with our world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find my_car_sim)/worlds/car_world.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+  
+  <!-- Convert xacro to urdf and send to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find my_car_sim)/urdf/car_with_sensors.urdf.xacro'" />
+  
+  <!-- Spawn the robot in Gazebo -->
+  <node name="spawn_car" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-urdf -param robot_description -model my_car -z 0.05"/>
+  
+  <!-- Load robot controllers -->
+  <include file="$(find my_car_sim)/launch/car_control.launch" />
+</launch>

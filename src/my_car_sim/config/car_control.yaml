@@ -1,0 +1,39 @@
+# Car joint controller
+car_joint_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: front_left_wheel_joint
+  pid: {p: 2.0, i: 0.1, d: 0.05}
+
+# Car differential drive controller
+car_diff_drive_controller:
+  type: diff_drive_controller/DiffDriveController
+  left_wheel: ['front_left_wheel_joint', 'rear_left_wheel_joint']
+  right_wheel: ['front_right_wheel_joint', 'rear_right_wheel_joint']
+  
+  # Wheel separation and radius
+  wheel_separation: 0.34
+  wheel_radius: 0.05
+  
+  # PID controllers
+  linear:
+    x:
+      has_velocity_limits: true
+      max_velocity: 1.0
+      has_acceleration_limits: true
+      max_acceleration: 0.5
+      # PID parameters
+      pid_gains:
+        p: 1.5
+        i: 0.5
+        d: 0.0
+  angular:
+    z:
+      has_velocity_limits: true
+      max_velocity: 1.0
+      has_acceleration_limits: true
+      max_acceleration: 0.5
+      # PID parameters
+      pid_gains:
+        p: 1.5
+        i: 0.5
+        d: 0.0
